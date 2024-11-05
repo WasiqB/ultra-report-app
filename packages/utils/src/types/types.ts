@@ -98,16 +98,75 @@ type FormattedData = {
   areaChartData: AreaChartData[];
 };
 
+type TestSuiteResultData = {
+  run_date: string;
+  suite_name: string;
+  status: string;
+  started_at: string;
+  finished_at: string;
+  duration_ms: string;
+};
+
+type TestResultData = {
+  run_date: string;
+  suite_name: string;
+  test_name: string;
+  status: string;
+  started_at: string;
+  finished_at: string;
+  duration_ms: string;
+};
+
+type TestClassResultData = {
+  run_date: string;
+  suite_name: string;
+  test_name: string;
+  class_name: string;
+  status: string;
+  started_at: string;
+  finished_at: string;
+  duration_ms: string;
+};
+
+type TestMethodResultData = {
+  run_date: string;
+  suite_name: string;
+  test_name: string;
+  class_name: string;
+  method_name: string;
+  is_config: boolean;
+  tags: string[];
+  parameters: string[];
+  status: string;
+  exception?: TestException;
+  attachment?: TestLog;
+  started_at: string;
+  finished_at: string;
+  duration_ms: string;
+};
+
+type ProcessedData = {
+  suites: TestSuiteResultData[];
+  tests: TestResultData[];
+  classes: TestClassResultData[];
+  methods: TestMethodResultData[];
+};
+
 export type {
   AreaChartData,
   ChartData,
   FormattedData,
+  ProcessedData,
   TestCase,
   TestClass,
+  TestClassResultData,
   TestException,
   TestLog,
   TestMethod,
+  TestMethodResultData,
   TestResult,
+  TestResultData,
   TestStatus,
   TestSuite,
+  TestSuiteResultData,
 };

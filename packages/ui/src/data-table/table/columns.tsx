@@ -1,7 +1,11 @@
+import { StatusCell } from '@/results/cells/status';
 import { GearIcon } from '@radix-ui/react-icons';
 import { ColumnDef } from '@tanstack/react-table';
-import { cn } from '@ultra-reporter/utils/cn';
-import { TestException, TestLog } from '@ultra-reporter/utils/types';
+import {
+  TestException,
+  TestLog,
+  TestMethodResultData,
+} from '@ultra-reporter/utils/types';
 import {
   CircleAlert,
   Link,
@@ -12,7 +16,6 @@ import {
   TestTubes,
 } from 'lucide-react';
 import { useState } from 'react';
-import { Badge } from '../../components/badge';
 import { Button } from '../../components/button';
 import {
   Card,
@@ -32,9 +35,8 @@ import {
 import { TooltipWrapper } from '../../utils/tooltip-wrapper';
 import { CellData, SortableHeader } from '../cell-text-data';
 import { AttachmentDialog } from './attachment';
-import { statuses, TestResultData } from './data';
 
-export const columns: ColumnDef<TestResultData>[] = [
+export const columns: ColumnDef<TestMethodResultData>[] = [
   {
     accessorKey: 'suite_name',
     header: 'Suite Name',
@@ -74,30 +76,7 @@ export const columns: ColumnDef<TestResultData>[] = [
     header: ({ column }) => <SortableHeader column={column} header='Status' />,
     cell: ({ row }) => {
       const status = row.getValue('status') as string;
-      const foundStatus = statuses.find((s) => s.value === status);
-      if (!foundStatus) {
-        return null;
-      }
-      return (
-        <div className='flex items-center'>
-          <Badge
-            variant='outline'
-            className={cn('px-2 py-1', {
-              'bg-green-500/20 text-green-700 dark:bg-green-500/30 dark:text-green-300':
-                status === 'pass',
-              'bg-red-500/20 text-red-700 dark:bg-red-500/30 dark:text-red-300':
-                status === 'fail',
-              'bg-yellow-500/20 text-yellow-700 dark:bg-yellow-500/30 dark:text-yellow-300':
-                status === 'skip',
-              'bg-gray-500/20 text-gray-700 dark:bg-gray-500/30 dark:text-gray-300':
-                status === 'ignored',
-            })}
-          >
-            <foundStatus.icon className={cn('mr-2 h-4 w-4')} />
-            {foundStatus.label}
-          </Badge>
-        </div>
-      );
+      return <StatusCell status={status} />;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

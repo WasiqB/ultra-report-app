@@ -9,37 +9,54 @@ import {
   AreaChartData,
   ChartData,
   FormattedData,
-  TestException,
-  TestLog,
+  ProcessedData,
+  TestClassResultData,
+  TestMethodResultData,
   TestResult,
+  TestResultData,
+  TestSuiteResultData,
 } from '@ultra-reporter/utils/types';
-import { AlertTriangle, Check, X } from 'lucide-react';
 
-export type TestResultData = {
-  run_date: string;
-  suite_name: string;
-  test_name: string;
-  class_name: string;
-  method_name: string;
-  is_config: boolean;
-  tags: string[];
-  parameters: string[];
-  status: string;
-  exception?: TestException;
-  attachment?: TestLog;
-  started_at: string;
-  finished_at: string;
-  duration_ms: string;
-};
-
-export const getData = (data: TestResult): TestResultData[] => {
-  const result: TestResultData[] = [];
+export const getData = (data: TestResult): ProcessedData => {
+  const suiteResults: TestSuiteResultData[] = [];
+  const testResults: TestResultData[] = [];
+  const classResults: TestClassResultData[] = [];
+  const methodResults: TestMethodResultData[] = [];
   const suites = data.test_suites;
+
   for (const suite of suites) {
+    suiteResults.push({
+      suite_name: suite.name,
+      status: suite.failed === 0 ? 'pass' : 'fail',
+      duration_ms: formatDuration(suite.duration_ms),
+      started_at: formatDateTime(suite.started_at).time,
+      finished_at: formatDateTime(suite.finished_at).time,
+      run_date: formatDateTime(suite.started_at).date,
+    });
+
     for (const test of suite.test_cases) {
+      testResults.push({
+        suite_name: suite.name,
+        test_name: test.name,
+        status: test.failed === 0 ? 'pass' : 'fail',
+        duration_ms: formatDuration(test.duration_ms),
+        started_at: formatDateTime(test.started_at).time,
+        finished_at: formatDateTime(test.finished_at).time,
+        run_date: formatDateTime(test.started_at).date,
+      });
+
       for (const cls of test.test_classes) {
+        let start_at: string = '';
+        let finish_at: string = '';
+        let duration: number = 0;
+
         for (const method of cls.test_methods) {
-          result.push({
+          if (start_at !== '') {
+            start_at = formatDateTime(method.started_at).time;
+          }
+          finish_at = formatDateTime(method.finished_at).time;
+
+          methodResults.push({
             run_date: formatDateTime(method.started_at).date,
             suite_name: suite.name,
             test_name: test.name,
@@ -56,37 +73,35 @@ export const getData = (data: TestResult): TestResultData[] => {
             duration_ms: formatDuration(method.duration_ms),
           });
         }
+
+        classResults.push({
+          suite_name: suite.name,
+          test_name: test.name,
+          class_name: cls.name,
+          status: cls.failed === 0 ? 'pass' : 'fail',
+          duration_ms: formatDuration(duration),
+          started_at: start_at,
+          finished_at: finish_at,
+          run_date: formatDateTime(test.started_at).date,
+        });
       }
     }
   }
-  return result;
+  return {
+    suites: suiteResults,
+    tests: testResults,
+    classes: classResults,
+    methods: methodResults,
+  };
 };
 
-export const statuses = [
-  {
-    value: 'pass',
-    label: 'Passed',
-    icon: Check,
-    badge_style: 'bg-green-100 hover:bg-green-300 text-green-800',
-    label_style: 'text-green-500',
-  },
-  {
-    value: 'fail',
-    label: 'Failed',
-    icon: X,
-    badge_style: 'bg-red-100 hover:bg-red-300 text-red-800',
-    label_style: 'text-red-500',
-  },
-  {
-    value: 'skip',
-    label: 'Skipped',
-    icon: AlertTriangle,
-    badge_style: 'bg-yellow-100 hover:bg-yellow-300 text-yellow-800',
-    label_style: 'text-yellow-500',
-  },
-];
-
-export const getFormattedData = (data: TestResultData[]): FormattedData => {
+export const getFormattedData = (
+  data:
+    | TestSuiteResultData[]
+    | TestResultData[]
+    | TestClassResultData[]
+    | TestMethodResultData[]
+): FormattedData => {
   const statusCounts = {
     pass: 0,
     fail: 0,
@@ -130,12 +145,17 @@ export const getFormattedData = (data: TestResultData[]): FormattedData => {
     },
   ];
 
-  const areaChartData: AreaChartData[] = data.map((r) => {
-    return {
-      property: `${r.class_name} / ${r.method_name}`,
-      value: toDuration(r.duration_ms),
-    };
-  });
+  const areaChartData: AreaChartData[] = [];
+  if (data[0] && 'method_name' in data[0] && 'class_name' in data[0]) {
+    areaChartData.push(
+      ...(data as TestMethodResultData[]).map((r) => {
+        return {
+          property: `${r.class_name} / ${r.method_name}`,
+          value: toDuration(r.duration_ms),
+        };
+      })
+    );
+  }
 
   const date =
     data && data.length > 0

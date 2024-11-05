@@ -6,6 +6,7 @@ import {
   VisibilityState,
 } from '@tanstack/react-table';
 import { AreaChartComponent } from '@ultra-reporter/ui/charts/area-chart';
+import { barConfig, chartConfig } from '@ultra-reporter/ui/charts/chart-props';
 import { DoughNutComponent } from '@ultra-reporter/ui/charts/dough-nut-chart';
 import { PieComponent } from '@ultra-reporter/ui/charts/pie-chart';
 import {
@@ -15,62 +16,49 @@ import {
   CardHeader,
   CardTitle,
 } from '@ultra-reporter/ui/components/card';
-import { ChartConfig } from '@ultra-reporter/ui/components/chart';
 import { Skeleton } from '@ultra-reporter/ui/components/skeleton';
-import { getFormattedData, TestResultData } from '@ultra-reporter/ui/data';
+import { getFormattedData } from '@ultra-reporter/ui/data';
 import { DataTable } from '@ultra-reporter/ui/data-table/data-table';
-import { columns } from '@ultra-reporter/ui/data-table/table/columns';
+import { suiteColumns } from '@ultra-reporter/ui/data-table/table/suite-columns';
 import { NavBar } from '@ultra-reporter/ui/home/nav-bar';
+import { BreadcrumbNav } from '@ultra-reporter/ui/results/breadcrumb-nav';
 import { cn } from '@ultra-reporter/utils/cn';
-import { FormattedData } from '@ultra-reporter/utils/types';
+import {
+  FormattedData,
+  ProcessedData,
+  TestClassResultData,
+  TestMethodResultData,
+  TestResultData,
+  TestSuiteResultData,
+} from '@ultra-reporter/utils/types';
 import { useEffect, useState } from 'react';
-
-const chartConfig: ChartConfig = {
-  total: {
-    label: 'Test Cases',
-  },
-  pass: {
-    label: 'Passes',
-    color: 'hsl(var(--passed))',
-  },
-  fail: {
-    label: 'Failed',
-    color: 'hsl(var(--failed))',
-  },
-  skip: {
-    label: 'Skipped',
-    color: 'hsl(var(--skipped))',
-  },
-  ignored: {
-    label: 'Ignored',
-    color: 'hsl(var(--ignored))',
-  },
-};
-
-const barConfig: ChartConfig = {
-  property: {
-    label: 'Method',
-    color: 'hsl(var(--failed))',
-  },
-};
 
 const ResultsPage = (): JSX.Element => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [result, setResult] = useState<TestResultData[]>([]);
+  const [suites, setSuites] = useState<TestSuiteResultData[]>([]);
+  const [tests, setTests] = useState<TestResultData[]>([]);
+  const [classes, setClasses] = useState<TestClassResultData[]>([]);
+  const [methods, setMethods] = useState<TestMethodResultData[]>([]);
   const [formattedData, setFormattedData] = useState<FormattedData>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const resultData = localStorage.getItem('json-data') as string;
     if (resultData) {
-      const testResult: TestResultData[] = JSON.parse(resultData);
-      setResult(testResult);
-      setFormattedData(getFormattedData(testResult));
+      const { suites, tests, classes, methods }: ProcessedData =
+        JSON.parse(resultData);
+      setSuites(suites);
+      setTests(tests);
+      setClasses(classes);
+      setMethods(methods);
+      setFormattedData(getFormattedData(suites));
     }
     setIsLoading(false);
   }, []);
+
+  const breadcrumbItems = [{ label: 'All Suites', href: '/results' }];
 
   const {
     passed,
@@ -90,7 +78,8 @@ const ResultsPage = (): JSX.Element => {
         cta='Generate new Report'
         showFeedback
       />
-      <main className='flex-grow pt-16'>
+      <main className='flex-grow'>
+        <BreadcrumbNav items={breadcrumbItems} />
         <section className='container mx-auto space-y-6 p-4'>
           <Card className='bg-card text-card-foreground'>
             <CardHeader className='items-center pb-5'>
@@ -183,22 +172,24 @@ const ResultsPage = (): JSX.Element => {
               </>
             )}
           </div>
-          <div className='grid grid-cols-1 gap-6'>
-            {isLoading ? (
-              <>
-                <Skeleton className='h-[300px] w-full' />
-              </>
-            ) : (
-              <>
-                <AreaChartComponent
-                  title='Test Execution Trends (in seconds)'
-                  description='Displays the test execution time trends'
-                  config={barConfig}
-                  data={areaChartData || []}
-                />
-              </>
-            )}
-          </div>
+          {areaChartData && areaChartData.length > 0 && (
+            <div className='grid grid-cols-1 gap-6'>
+              {isLoading ? (
+                <>
+                  <Skeleton className='h-[300px] w-full' />
+                </>
+              ) : (
+                <>
+                  <AreaChartComponent
+                    title='Test Execution Trends (in seconds)'
+                    description='Displays the test execution time trends'
+                    config={barConfig}
+                    data={areaChartData || []}
+                  />
+                </>
+              )}
+            </div>
+          )}
           <Card>
             <CardHeader className='items-center pb-5'>
               <CardTitle className='text-xl'>Test Details</CardTitle>
@@ -209,11 +200,11 @@ const ResultsPage = (): JSX.Element => {
             <CardContent>
               {isLoading ? (
                 <Skeleton className='h-[400px] w-full' />
-              ) : result ? (
+              ) : suites ? (
                 <DataTable
-                  columns={columns}
-                  data={result}
-                  filterColumn='method_name'
+                  columns={suiteColumns}
+                  data={suites}
+                  filterColumn='suite_name'
                   columnFilters={columnFilters}
                   columnVisibility={columnVisibility}
                   sorting={sorting}

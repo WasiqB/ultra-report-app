@@ -1,17 +1,17 @@
-
-
-
 ## 0.4.0 (2024-10-27)
 
 #### :rocket: New Feature
-* [#61](https://github.com/WasiqB/ultra-reporter-app/pull/61) feat: :sparkles: updated landing page ([@WasiqB](https://github.com/WasiqB))
-* [#60](https://github.com/WasiqB/ultra-reporter-app/pull/60) feat: :sparkles: added config method filter toggle ([@WasiqB](https://github.com/WasiqB))
-* [#57](https://github.com/WasiqB/ultra-reporter-app/pull/57) feat: :sparkles: added test execution trend chart ([@WasiqB](https://github.com/WasiqB))
+
+- [#61](https://github.com/WasiqB/ultra-reporter-app/pull/61) feat: :sparkles: updated landing page ([@WasiqB](https://github.com/WasiqB))
+- [#60](https://github.com/WasiqB/ultra-reporter-app/pull/60) feat: :sparkles: added config method filter toggle ([@WasiqB](https://github.com/WasiqB))
+- [#57](https://github.com/WasiqB/ultra-reporter-app/pull/57) feat: :sparkles: added test execution trend chart ([@WasiqB](https://github.com/WasiqB))
 
 #### :bug: Bug Fix
-* [#62](https://github.com/WasiqB/ultra-reporter-app/pull/62) fix: :bug: added support for multiple attachments for single test ([@WasiqB](https://github.com/WasiqB))
+
+- [#62](https://github.com/WasiqB/ultra-reporter-app/pull/62) fix: :bug: added support for multiple attachments for single test ([@WasiqB](https://github.com/WasiqB))
 
 #### Committers: 1
+
 - Wasiq Bhamla ([@WasiqB](https://github.com/WasiqB))
 
 ## 0.3.0 (2024-10-15)
