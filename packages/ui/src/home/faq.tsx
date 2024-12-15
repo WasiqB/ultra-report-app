@@ -1,6 +1,7 @@
 'use client';
 
 import { getFlag } from '@ultra-reporter/feature-toggle/provider';
+import { JSX } from 'react';
 import { Description } from '../common/description';
 import { Title } from '../common/title';
 import {

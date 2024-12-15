@@ -4,7 +4,7 @@
 import { createFlagsmithInstance } from 'flagsmith/isomorphic';
 import { FlagsmithProvider, useFlags } from 'flagsmith/react';
 import { IFlagsmithFeature, IFlagsmithTrait, IState } from 'flagsmith/types';
-import { useRef } from 'react';
+import { JSX, useRef } from 'react';
 import { Flags } from './flag-list';
 
 interface FeatureProviderProps {

@@ -17,6 +17,7 @@ import {
   VisibilityState,
 } from '@tanstack/react-table';
 
+import { JSX } from 'react';
 import {
   Table,
   TableBody,

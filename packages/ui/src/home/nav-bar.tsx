@@ -3,6 +3,7 @@
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { JSX } from 'react';
 import { Button } from '../components/button';
 import { Sheet, SheetContent, SheetTrigger } from '../components/sheet';
 import { ThemeToggle } from '../components/theme-toggle';

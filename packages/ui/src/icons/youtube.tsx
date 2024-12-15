@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export const YouTube = (): JSX.Element => {
   return (
     <svg

@@ -1,4 +1,5 @@
 import { ChartData } from '@ultra-reporter/utils/types';
+import { JSX } from 'react';
 import { Label, Pie, PieChart } from 'recharts';
 import {
   Card,

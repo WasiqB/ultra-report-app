@@ -11,12 +11,12 @@
     "./client": "./src/client.tsx"
   },
   "dependencies": {
-    "@openpanel/nextjs": "^1.0.6",
+    "@openpanel/nextjs": "^1.0.7",
     "@ultra-reporter/utils": "workspace:*",
     "@vercel/functions": "^1.5.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
+    "@types/react": "^19.0.1",
     "@ultra-reporter/logger": "workspace:*",
     "@ultra-reporter/typescript-config": "workspace:*"
   }

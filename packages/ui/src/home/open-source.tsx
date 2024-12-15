@@ -1,5 +1,6 @@
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
+import { JSX } from 'react';
 import { RainbowButton } from '../components/rainbow-button';
 
 export const OpenSource = (): JSX.Element => {

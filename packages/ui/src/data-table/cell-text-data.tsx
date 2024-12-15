@@ -1,5 +1,6 @@
 import { Column } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { JSX } from 'react';
 import { Button } from '../components/button';
 import { TooltipWrapper } from '../utils/tooltip-wrapper';
 

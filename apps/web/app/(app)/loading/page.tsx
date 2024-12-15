@@ -10,14 +10,9 @@ import {
   CardTitle,
 } from '@ultra-reporter/ui/components/card';
 import { Progress } from '@ultra-reporter/ui/components/progress';
-import { getData } from '@ultra-reporter/ui/data';
-import {
-  convertToJson,
-  getTestResults,
-} from '@ultra-reporter/utils/xml-parser';
 import { Bug, MoveLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 
 const LoadingPage = (): JSX.Element => {
   const [progress, setProgress] = useState(0);
@@ -25,29 +20,43 @@ const LoadingPage = (): JSX.Element => {
   const router = useRouter();
 
   useEffect(() => {
-    const xmlContent = localStorage.getItem('xml-data');
-    try {
-      setProgress(0);
-      if (!xmlContent) {
-        throw new Error('No XML data found in the file.');
-      }
-      setProgress(25);
-      const jsonData = convertToJson(xmlContent);
-      setProgress(50);
-      const testResult = getTestResults(jsonData);
-      setProgress(75);
-      localStorage.setItem('json-data', JSON.stringify(getData(testResult)));
-      setProgress(100);
-      router.push('/results');
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(`${err.message}`);
-        if (process.env.VERCEL_ENV !== 'production') {
-          console.error(`Message: ${err.message}
-Stack: ${err.stack}`);
+    const fetchData = async () => {
+      try {
+        setProgress(25);
+
+        const response = await fetch('/api/format-data', {
+          body: JSON.stringify({
+            value: localStorage.getItem('xml-data'),
+          }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to get formatted data');
         }
+
+        setProgress(75);
+        const data = await response.json();
+
+        if (!data) {
+          throw new Error('No data received from server');
+        }
+
+        localStorage.setItem('json-data', JSON.stringify(data));
+
+        setProgress(100);
+        router.push('/results');
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load data');
       }
-    }
+    };
+
+    fetchData();
   }, [router]);
 
   const handleBack = (): void => {

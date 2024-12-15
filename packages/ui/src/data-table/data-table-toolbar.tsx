@@ -1,6 +1,6 @@
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import { Button } from '../components/button';
 import { Input } from '../components/input';
 import { Switch } from '../components/switch';

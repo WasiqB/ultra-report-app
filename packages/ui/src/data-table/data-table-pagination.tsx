@@ -1,4 +1,5 @@
 import { Table } from '@tanstack/react-table';
+import { JSX } from 'react';
 import { Button } from '../components/button';
 import {
   Select,

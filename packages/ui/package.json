@@ -47,18 +47,18 @@
     "class-variance-authority": "^0.7.1",
     "cmdk": "1.0.4",
     "embla-carousel-react": "^8.5.1",
-    "lucide-react": "^0.462.0",
-    "next": "15.0.3",
-    "next-themes": "^0.4.3",
+    "lucide-react": "^0.468.0",
+    "next": "15.0.4",
+    "next-themes": "^0.4.4",
     "react-code-blocks": "^0.1.6",
-    "react-hook-form": "^7.53.2",
-    "recharts": "^2.13.3",
+    "react-hook-form": "^7.54.0",
+    "recharts": "^2.14.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "@ultra-reporter/feature-toggle": "workspace:*",
     "@ultra-reporter/typescript-config": "workspace:*",
     "@ultra-reporter/utils": "workspace:*",
@@ -66,6 +66,6 @@
     "daisyui": "^4.12.14",
     "postcss": "^8.4.49",
     "postcss-load-config": "^6.0.1",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.16"
   }
 }

@@ -14,20 +14,21 @@
     "react-dom": "^18.0"
   },
   "dependencies": {
-    "@next/third-parties": "^15.0.3",
+    "@next/third-parties": "^15.0.4",
     "@tanstack/react-table": "^8.20.5",
     "@ultra-reporter/analytics": "workspace:*",
+    "@ultra-reporter/kv": "workspace:*",
     "@ultra-reporter/feature-toggle": "workspace:*",
     "@ultra-reporter/ui": "workspace:*",
     "@ultra-reporter/utils": "workspace:*",
-    "lucide-react": "^0.462.0",
-    "next": "15.0.3"
+    "lucide-react": "^0.468.0",
+    "next": "15.0.4"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "@ultra-reporter/typescript-config": "workspace:*",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.16"
   }
 }

@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export const LinkedIn = (): JSX.Element => {
   return (
     <svg

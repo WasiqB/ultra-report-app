@@ -6,6 +6,7 @@ import { HowItWorks } from '@ultra-reporter/ui/home/how-it-works';
 import { NavBar } from '@ultra-reporter/ui/home/nav-bar';
 import { OpenSource } from '@ultra-reporter/ui/home/open-source';
 import { Sponsor } from '@ultra-reporter/ui/home/sponsor';
+import { JSX } from 'react';
 
 const LandingPage = (): JSX.Element => {
   return (

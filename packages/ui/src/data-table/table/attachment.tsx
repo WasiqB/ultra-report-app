@@ -7,7 +7,7 @@ import {
   prettifyJson,
 } from '@ultra-reporter/utils/string-util';
 import { Link } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { CopyBlock, dracula } from 'react-code-blocks';
 import { Button } from '../../components/button';
 import { Card, CardContent } from '../../components/card';

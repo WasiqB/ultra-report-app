@@ -8,6 +8,7 @@ import {
   Table,
   Timer,
 } from 'lucide-react';
+import { JSX } from 'react';
 
 const features = [
   {

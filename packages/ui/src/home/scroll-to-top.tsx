@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowUp } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { Button } from '../components/button';
 import { TooltipWrapper } from '../utils/tooltip-wrapper';
 

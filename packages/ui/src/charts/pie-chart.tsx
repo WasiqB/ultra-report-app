@@ -3,6 +3,7 @@
 import { Pie, PieChart } from 'recharts';
 
 import { ChartData } from '@ultra-reporter/utils/types';
+import { JSX } from 'react';
 import {
   Card,
   CardContent,

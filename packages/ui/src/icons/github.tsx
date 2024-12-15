@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export const GitHub = (): JSX.Element => {
   return (
     <svg

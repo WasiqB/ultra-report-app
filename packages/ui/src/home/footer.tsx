@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { JSX } from 'react';
 import packageInfo from '../../package.json';
 import { GitHub } from '../icons/github';
 import { LinkedIn } from '../icons/linkedin';

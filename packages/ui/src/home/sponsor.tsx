@@ -1,5 +1,6 @@
 import { HeartIcon } from 'lucide-react';
 import Link from 'next/link';
+import { JSX } from 'react';
 import { RainbowButton } from '../components/rainbow-button';
 
 export const Sponsor = (): JSX.Element => {

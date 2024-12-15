@@ -2,7 +2,7 @@
 
 import { Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import { Button } from '../components/button';
 import { Input } from '../components/input';
 import { Label } from '../components/label';
@@ -38,16 +38,25 @@ export const FileUpload = (): JSX.Element => {
     if (file) {
       setLoading(true);
       try {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-          const xmlContent = e.target?.result as string;
-          localStorage.setItem('xml-data', xmlContent);
-          router.push('/loading');
-        };
-        reader.readAsText(file);
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch('/api/process-file', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to process file');
+        }
+
+        localStorage.setItem('xml-data', JSON.stringify(await response.json()));
+
+        router.push('/loading');
       } catch (error) {
-        console.error('Error reading file:', error);
-        alert('Error reading file');
+        console.error('Error processing file:', error);
+        alert(error instanceof Error ? error.message : 'Error processing file');
       } finally {
         setLoading(false);
       }

@@ -11,8 +11,8 @@
     "./provider": "./src/provider.tsx"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "@ultra-reporter/typescript-config": "workspace:*"
   },
   "peerDependencies": {

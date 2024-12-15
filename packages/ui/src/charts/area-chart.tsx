@@ -3,6 +3,7 @@
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
 import { AreaChartData } from '@ultra-reporter/utils/types';
+import { JSX } from 'react';
 import {
   Card,
   CardContent,

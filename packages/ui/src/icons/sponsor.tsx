@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export const Sponsor = (): JSX.Element => {
   return (
     <svg

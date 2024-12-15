@@ -90,7 +90,7 @@ const RootLayout = async ({
               {children}
               <ScrollToTop />
               <Footer />
-              <AnalyticsProvider />
+              {isProd && <AnalyticsProvider />}
             </ThemeProvider>
           </body>
           {isProd && <GoogleAnalytics gaId='G-CNW9F6PH7P' />}

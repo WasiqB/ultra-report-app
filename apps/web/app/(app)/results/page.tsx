@@ -23,7 +23,7 @@ import { columns } from '@ultra-reporter/ui/data-table/table/columns';
 import { NavBar } from '@ultra-reporter/ui/home/nav-bar';
 import { cn } from '@ultra-reporter/utils/cn';
 import { FormattedData } from '@ultra-reporter/utils/types';
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 
 const chartConfig: ChartConfig = {
   total: {
@@ -63,13 +63,34 @@ const ResultsPage = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const resultData = localStorage.getItem('json-data') as string;
-    if (resultData) {
-      const testResult: TestResultData[] = JSON.parse(resultData);
-      setResult(testResult);
-      setFormattedData(getFormattedData(testResult));
-    }
-    setIsLoading(false);
+    const loadData = async () => {
+      try {
+        const resultData = localStorage.getItem('json-data');
+        if (resultData) {
+          const testResult: TestResultData[] = JSON.parse(resultData);
+          setResult(testResult);
+          setFormattedData(getFormattedData(testResult));
+          setIsLoading(false);
+          return;
+        }
+
+        // If no localStorage data, try to get from cookies
+        const response = await fetch('/api/get-formatted-data');
+        if (response.ok) {
+          const data = await response.json();
+          setResult(data);
+          setFormattedData(getFormattedData(data));
+          // Save to localStorage for future use
+          localStorage.setItem('json-data', JSON.stringify(data));
+        }
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   const {

@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import { Description } from '../common/description';
 import { Title } from '../common/title';
 import { Card, CardContent } from '../components/card';

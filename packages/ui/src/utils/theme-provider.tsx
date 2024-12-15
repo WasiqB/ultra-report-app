@@ -4,6 +4,7 @@ import {
   ThemeProvider as NextThemesProvider,
   type ThemeProviderProps,
 } from 'next-themes';
+import { JSX } from 'react';
 
 export const ThemeProvider = ({
   children,

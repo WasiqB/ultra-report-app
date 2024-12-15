@@ -2,6 +2,7 @@
 
 import { getFlag } from '@ultra-reporter/feature-toggle/provider';
 import Image from 'next/image';
+import { JSX } from 'react';
 import { FileUpload } from '../utils/file-upload';
 
 export const Hero = (): JSX.Element => {

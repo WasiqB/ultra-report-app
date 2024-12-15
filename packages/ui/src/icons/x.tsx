@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export const X = (): JSX.Element => {
   return (
     <svg
