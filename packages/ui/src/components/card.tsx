@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { cn } from '@ultra-reporter/utils/cn';
+import * as React from 'react';
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -30,10 +29,10 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = 'CardHeader';
 
 const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <h3
+  <div
     ref={ref}
     className={cn('font-semibold leading-none tracking-tight', className)}
     {...props}
@@ -42,10 +41,10 @@ const CardTitle = React.forwardRef<
 CardTitle.displayName = 'CardTitle';
 
 const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <p
+  <div
     ref={ref}
     className={cn('text-muted-foreground text-sm', className)}
     {...props}

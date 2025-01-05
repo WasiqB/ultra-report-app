@@ -1,6 +1,6 @@
 {
-  "name": "@ultra-reporter/feature-toggle",
-  "description": "Ultra Reporter feature toggles",
+  "name": "@ultra-reporter/supabase",
+  "description": "Ultra Reporter Supabase integration",
   "version": "0.6.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,8 @@
   },
   "exports": {
     "./client": "./src/client.ts",
-    "./provider": "./src/provider.tsx"
+    "./server": "./src/server.ts",
+    "./middleware": "./src/middleware.ts"
   },
   "devDependencies": {
     "@types/react": "^19.0.2",
@@ -20,6 +21,8 @@
     "react-dom": "^19.0"
   },
   "dependencies": {
-    "flagsmith": "^8.0.2"
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "next": "15.1.3"
   }
 }

@@ -8,7 +8,7 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "pino": "^9.5.0"
+    "pino": "^9.6.0"
   },
   "devDependencies": {
     "@ultra-reporter/typescript-config": "workspace:*"

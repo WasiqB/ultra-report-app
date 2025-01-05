@@ -2,7 +2,9 @@
 
 import { getFlag } from '@ultra-reporter/feature-toggle/provider';
 import Image from 'next/image';
+import Link from 'next/link';
 import { JSX } from 'react';
+import { Button } from '../components/button';
 import { FileUpload } from '../utils/file-upload';
 
 export const Hero = (): JSX.Element => {
@@ -21,6 +23,15 @@ export const Hero = (): JSX.Element => {
           {!signInSupport?.enabled && (
             <div className='w-full max-w-sm pt-8'>
               <FileUpload />
+            </div>
+          )}
+          {signInSupport?.enabled && (
+            <div className='w-full max-w-sm pt-8'>
+              <Link href='/login' passHref>
+                <Button size='sm' className='w-full'>
+                  Try for Free
+                </Button>
+              </Link>
             </div>
           )}
         </div>

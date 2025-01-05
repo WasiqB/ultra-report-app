@@ -4,30 +4,45 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
-model User {
-    id        String @id @default(cuid())
-    user_name String
-    email     String
-    provider  String
-
-    created_at DateTime @default(now())
-    updated_at DateTime @updatedAt
-
-    LoginSession LoginSession[]
-}
-
-model LoginSession {
+model TestResultData {
     id            String   @id @default(cuid())
-    user_id       String
-    last_login_at DateTime @default(now())
-    created_at    DateTime @default(now())
-    updated_at    DateTime @updatedAt
+    suite_name    String
+    test_name     String
+    class_name    String
+    method_name   String
+    is_config     Boolean
+    tags          String[]
+    parameters    String[]
+    status        String
+    exception_id  String
+    attachment_id String
+    started_at    DateTime
+    finished_at   DateTime
+    duration      Float
 
-    user User @relation(fields: [user_id], references: [id])
+    exception TestException? @relation(fields: [exception_id], references: [id])
 
-    @@index([user_id])
+    attachment TestLog? @relation(fields: [attachment_id], references: [id])
+
+    @@index([exception_id])
+    @@index([attachment_id])
+}
+
+model TestLog {
+    id             String           @id @default(cuid())
+    line           String
+    TestResultData TestResultData[]
+}
+
+model TestException {
+    id             String           @id @default(cuid())
+    class_name     String
+    message        String
+    stack_trace    String[]
+    TestResultData TestResultData[]
 }

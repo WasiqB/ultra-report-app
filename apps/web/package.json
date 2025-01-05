@@ -14,14 +14,16 @@
     "react-dom": "^19.0"
   },
   "dependencies": {
-    "@next/third-parties": "^15.1.2",
+    "@next/third-parties": "^15.1.3",
     "@tanstack/react-table": "^8.20.6",
     "@ultra-reporter/analytics": "workspace:*",
     "@ultra-reporter/feature-toggle": "workspace:*",
+    "@ultra-reporter/logger": "workspace:*",
+    "@ultra-reporter/supabase": "workspace:*",
     "@ultra-reporter/ui": "workspace:*",
     "@ultra-reporter/utils": "workspace:*",
     "lucide-react": "^0.469.0",
-    "next": "15.1.2"
+    "next": "15.1.3"
   },
   "devDependencies": {
     "@types/react": "^19.0.2",
