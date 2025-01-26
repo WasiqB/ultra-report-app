@@ -20,14 +20,14 @@
     "@ultra-reporter/feature-toggle": "workspace:*",
     "@ultra-reporter/ui": "workspace:*",
     "@ultra-reporter/utils": "workspace:*",
-    "lucide-react": "^0.469.0",
+    "lucide-react": "^0.474.0",
     "next": "15.1.2"
   },
   "devDependencies": {
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@ultra-reporter/typescript-config": "workspace:*",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17"
   }
 }
